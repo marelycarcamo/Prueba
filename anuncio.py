@@ -87,7 +87,7 @@ class Display(Anuncio):
 
 display = Display(1, 1, "url_archivo", "url_clic", "tradicional")
 try:
-    display.sub_tipo = "invalido"
+    display.sub_tipo = " "
 except SubTipoInvalidoException as e:
     print(e)
 
@@ -114,7 +114,7 @@ class Social(Anuncio):
 
 social = Social(6, 3, "url_archivo", "url_clic", "linkedin")
 try:
-    display.sub_tipo = "invalido"
+    display.sub_tipo = " "
 except SubTipoInvalidoException as e:
     print(e)
 social.comprimir_anuncio()
@@ -140,9 +140,9 @@ class Video(Anuncio):
         print("REDIMENSIONAMIENTO DE VIDEO NO IMPLEMENTADA AÚN")
         return
 
-video = Video(1, 1, "url_archivo", "url_clic", "instream",10)
+video = Video(1, 1, "url_archivo", "url_clic", "otro",10)
 try:
-    display.sub_tipo = "invalido"
+    display.sub_tipo = " "
 except SubTipoInvalidoException as e:
     print(e)
 video.comprimir_anuncio()

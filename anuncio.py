@@ -69,12 +69,14 @@ class Anuncio(ABC):
             print(f"- {sub_tipo}")
 
 
+
 class Display(Anuncio):
-    formato = "display"
+    formato = "Display"
     sub_tipos = ("tradicional","native")
-    def __init__(self,ancho:int,alto:int,url_archivo:str,url_clic:str,sub_tipo:str):
-        super().__init__(ancho,alto,url_archivo,url_clic,sub_tipo)
-    
+
+    def __init__(self, ancho:int, alto:int, url_archivo:str, url_clic:str, sub_tipo:str):
+        super().__init__(ancho, alto, url_archivo, url_clic, sub_tipo)
+
     def comprimir_anuncio(self):
         print("COMPRESIÓN DE ANUNCIOS DISPLAY NO IMPLEMENTADA AÚN")
         return
@@ -85,12 +87,11 @@ class Display(Anuncio):
 
 
 
-display = Display(1, 1, "url_archivo", "url_clic", "tradicional")
+display = Display(1, 9, "url_archivo", "url_clic", "tradicional")
 try:
-    display.sub_tipo = " "
+    display.sub_tipo = 'native'
 except SubTipoInvalidoException as e:
     print(e)
-
 
 display.comprimir_anuncio()
 display.redimensinar_anuncio()
@@ -99,10 +100,11 @@ Anuncio.mostrar_formatos(Display.formato, Display.sub_tipos)
 
 
 class Social(Anuncio):
-    formato = "social"
+    formato = "Social"
     sub_tipos = ("facebook","linkedin")
-    def __init__(self,ancho:int,alto:int,url_archivo:str,url_clic:str,sub_tipo:str):
-        super().__init__(ancho,alto,url_archivo,url_clic,sub_tipo)
+
+    def __init__(self, ancho:int, alto:int, url_archivo:str, url_clic:str, sub_tipo:str):
+        super().__init__(ancho, alto, url_archivo, url_clic, sub_tipo)
 
     def comprimir_anuncio(self):
         print("COMPRESIÓN DE REDES SOCIALES NO IMPLEMENTADA AÚN")
@@ -114,7 +116,7 @@ class Social(Anuncio):
 
 social = Social(6, 3, "url_archivo", "url_clic", "linkedin")
 try:
-    display.sub_tipo = " "
+    social.sub_tipo = 'facebook'
 except SubTipoInvalidoException as e:
     print(e)
 social.comprimir_anuncio()
@@ -123,14 +125,22 @@ Anuncio.mostrar_formatos(Social.formato, Social.sub_tipos)
 
 
 class Video(Anuncio):
-    formato = "video"
+    formato = "Video"
     sub_tipos = ("instream","outstream")
-    def __init__(self,ancho:int,alto:int,url_archivo:str,url_clic:str,sub_tipo:str,duracion:int):
+    ancho = 1
+    alto = 1
+    def __init__(self,ancho,alto,url_archivo:str,url_clic:str,sub_tipo:str,duracion:int):
         super().__init__(ancho,alto,url_archivo,url_clic,sub_tipo)
-        self.__duracion = duracion
-        self.__alto = 1
-        self.__ancho = 1
-        
+        self.__duracion = duracion if duracion > 0 else 5
+                
+    @property
+    def duracion(self):
+        return self.__duracion
+
+    @duracion.setter
+    def duracion(self,duracion:int):
+        self.__duracion = duracion if duracion > 0 else 5
+
 
     def comprimir_anuncio(self):
         print("COMPRESIÓN DE VIDEO NO IMPLEMENTADA AÚN")
@@ -140,11 +150,14 @@ class Video(Anuncio):
         print("REDIMENSIONAMIENTO DE VIDEO NO IMPLEMENTADA AÚN")
         return
 
-video = Video(1, 1, "url_archivo", "url_clic", "otro",10)
+video = Video(6,7, "url_archivo", "url_clic", "outstream",-8)
 try:
-    display.sub_tipo = " "
+    video.sub_tipo = 'otro'
 except SubTipoInvalidoException as e:
     print(e)
+
 video.comprimir_anuncio()
 video.redimensinar_anuncio()
 Anuncio.mostrar_formatos(Video.formato, Video.sub_tipos)
+
+print(video.ancho,video.alto,video.sub_tipo,video.duracion)

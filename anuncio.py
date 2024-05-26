@@ -84,18 +84,8 @@ class Display(Anuncio):
     def redimensinar_anuncio(self):
         print("REDIMENSIONAMIENTO DE ANUNCIOS DISPLAY NO IMPLEMENTADA AÚN")
         return
-
-
-
-display = Display(1, 9, "url_archivo", "url_clic", "tradicional")
-try:
-    display.sub_tipo = 'native'
-except SubTipoInvalidoException as e:
-    print(e)
-
-display.comprimir_anuncio()
-display.redimensinar_anuncio()
-Anuncio.mostrar_formatos(Display.formato, Display.sub_tipos)
+    
+    Anuncio.mostrar_formatos(formato,sub_tipos)
 
 
 
@@ -114,14 +104,7 @@ class Social(Anuncio):
         print("REDIMENSIONAMIENTO DE REDES SOCIALES NO IMPLEMENTADA AÚN")
         return
 
-social = Social(6, 3, "url_archivo", "url_clic", "linkedin")
-try:
-    social.sub_tipo = 'facebook'
-except SubTipoInvalidoException as e:
-    print(e)
-social.comprimir_anuncio()
-social.redimensinar_anuncio()
-Anuncio.mostrar_formatos(Social.formato, Social.sub_tipos)
+    Anuncio.mostrar_formatos(formato,sub_tipos)
 
 
 class Video(Anuncio):
@@ -150,14 +133,8 @@ class Video(Anuncio):
         print("REDIMENSIONAMIENTO DE VIDEO NO IMPLEMENTADA AÚN")
         return
 
-video = Video(6,7, "url_archivo", "url_clic", "outstream",-8)
-try:
-    video.sub_tipo = 'otro'
-except SubTipoInvalidoException as e:
-    print(e)
+    def __str__(self):
+        return (f"Video(ancho={self.ancho}, alto={self.alto}, url_archivo='{self.url_archivo}', "
+                f"url_clic='{self.url_clic}', sub_tipo='{self.sub_tipo}', duracion={self.duracion})")
 
-video.comprimir_anuncio()
-video.redimensinar_anuncio()
-Anuncio.mostrar_formatos(Video.formato, Video.sub_tipos)
-
-print(video.ancho,video.alto,video.sub_tipo,video.duracion)
+    Anuncio.mostrar_formatos(formato,sub_tipos)

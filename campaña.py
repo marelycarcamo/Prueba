@@ -1,11 +1,13 @@
 from datetime import date
 from anuncio import Display, Social, Video
 
+
 class LargoExcedidoException(Exception):
     pass
 
 class AttributeError(Exception):
     pass
+
 
 class Campaña:
     def __init__(self, nombre:str,fecha_inicio:date,fecha_termino:date,listado_anuncios:list):
@@ -13,8 +15,6 @@ class Campaña:
         self.__nombre=nombre
         self.__fecha_inicio=fecha_inicio
         self.__fecha_termino=fecha_termino
-        self.__crear_anuncios(anuncios)
-    
 
 
     @property
@@ -56,7 +56,7 @@ class Campaña:
         self.__listado_anuncios=listado_anuncios
 
 
-    def __crear_anuncios(self, anuncios:list):
+    def _crear_anuncios(self, anuncios):
         for datos_anuncio in anuncios:
             tipo = datos_anuncio['tipo']
             ancho = datos_anuncio['ancho']
@@ -76,6 +76,7 @@ class Campaña:
                 raise ValueError(f"Tipo de anuncio desconocido: {tipo}")
             
             self.listado_anuncios.append(anuncio)
+        return self.listado_anuncios
 
         
     def __count_anuncios(self):
@@ -95,31 +96,3 @@ class Campaña:
                 f"Anuncios: {counts['Video']} Video, {counts['Display']} Display, {counts['Social']} Social")
 
 
-# Ejemplo de uso
-anuncios = [
-    {'tipo': 'Display', 'ancho': 1, 'alto': 9, 'url_archivo': 'url_archivo1', 'url_clic': 'url_clic1', 'sub_tipo': 'tradicional'},
-    {'tipo': 'Display', 'ancho': 1, 'alto': 8, 'url_archivo': 'url_archivo2', 'url_clic': 'url_clic2', 'sub_tipo': 'native'},
-    {'tipo': 'Social', 'ancho': 6, 'alto': 3, 'url_archivo': 'url_archivo3', 'url_clic': 'url_clic3', 'sub_tipo': 'linkedin'},
-    {'tipo': 'Video', 'ancho': 6, 'alto': 7, 'url_archivo': 'url_archivo4', 'url_clic': 'url_clic4', 'sub_tipo': 'outstream', 'duracion': 12},
-]
-
-campaña = Campaña("Campaña 1", date(2021, 1, 1), date(2021, 6, 1), Campaña.listado_anuncios)
-
-print(campaña)
-
-
-
-try:
-    campaña.nombre = "pañaj2gjgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzCampañaj2gjgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaazzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
-except LargoExcedidoException as e:
-    print(e)
-
-try:
-    print(campaña.fecha_inicio)
-except AttributeError as e:
-    print(e)  # Imprime: El atributo1 es de solo escritura
-
-try:
-    print(campaña.fecha_termino)
-except AttributeError as e:
-    print(e)  # Imprime: El atributo1 es de solo escritura

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-class SubTipoInvalidoException(Exception):
-    pass
+from error import SubTipoInvalidoException
+
 
 class Anuncio(ABC):
     def __init__(self,ancho:int,alto:int,url_archivo:str,url_clic:str,sub_tipo:str):
@@ -48,9 +48,8 @@ class Anuncio(ABC):
 
     @sub_tipo.setter
     def sub_tipo(self, sub_tipo:str):
-        if sub_tipo is not None and sub_tipo != "":
-            if sub_tipo not in self.sub_tipos:
-                raise SubTipoInvalidoException(f"El subtipo {sub_tipo} no es válido para el formato {self.formato}")
+        if sub_tipo not in self.sub_tipos or sub_tipo == "":
+            raise SubTipoInvalidoException(f"El subtipo {sub_tipo} no es válido para el formato {self.formato}")
         self.__sub_tipo = sub_tipo
 
     @abstractmethod
@@ -63,7 +62,7 @@ class Anuncio(ABC):
 
     @staticmethod
     def mostrar_formatos(formato, sub_tipos):
-        print(f"FORMATO: {formato}")
+        print(f"\nFORMATO: {formato}")
         print("==========")
         for sub_tipo in sub_tipos:
             print(f"- {sub_tipo}")

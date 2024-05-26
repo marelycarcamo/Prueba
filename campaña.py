@@ -1,13 +1,6 @@
 from datetime import date
 from anuncio import Display, Social, Video
-
-
-class LargoExcedidoException(Exception):
-    pass
-
-class AttributeError(Exception):
-    pass
-
+from error import LargoExcedidoException
 
 class Campaña:
     def __init__(self, nombre:str,fecha_inicio:date,fecha_termino:date,listado_anuncios:list):
@@ -38,7 +31,10 @@ class Campaña:
     def nombre(self,nombre):
         if len(nombre) > 250:
             raise LargoExcedidoException ("El nombre de la campaña es demasiado largo")
-        self.__nombre=nombre
+        elif len(nombre) == 0:
+            print ("El nombre de la campaña no puede estar vacío")
+            exit()
+        self.__nombre=nombre  
 
 
     @fecha_inicio.setter
@@ -70,7 +66,7 @@ class Campaña:
             elif tipo == "Social":
                 anuncio = Social(ancho, alto, url_archivo, url_clic, sub_tipo)
             elif tipo == "Video":
-                duracion = datos_anuncio.get('duracion', 0)  # Por defecto 0 si no se proporciona duración
+                duracion = datos_anuncio.get('duracion', 5)  # Por defecto 0 si no se proporciona duración
                 anuncio = Video(ancho, alto, url_archivo, url_clic, sub_tipo, duracion)
             else:
                 raise ValueError(f"Tipo de anuncio desconocido: {tipo}")
@@ -92,7 +88,7 @@ class Campaña:
 
     def __str__(self):
         counts = self.__count_anuncios()
-        return (f"Nombre de la campaña: {self.__nombre}\n"
-                f"Anuncios: {counts['Video']} Video, {counts['Display']} Display, {counts['Social']} Social")
+        return (f"\nNombre de la campaña: {self.__nombre}\n"
+            f"Anuncios: {counts['Video']} Video, {counts['Display']} Display, {counts['Social']} Social\n")
 
 

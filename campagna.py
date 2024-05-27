@@ -2,7 +2,7 @@ from datetime import date
 from anuncio import Display, Social, Video
 from error import LargoExcedidoException
 
-class Campaña:
+class Campagna:
     def __init__(self, nombre:str,fecha_inicio:date,fecha_termino:date,listado_anuncios:list):
         self.__listado_anuncios = []
         self.__nombre=nombre

@@ -7,7 +7,8 @@ class Campagna:
         self.__listado_anuncios = []
         self.__nombre=nombre
         self.__fecha_inicio=fecha_inicio
-        self.__fecha_termino=fecha_termino
+        self.__fecha_termino=fecha_termino 
+        
 
 
     @property
@@ -50,7 +51,7 @@ class Campagna:
     @listado_anuncios.setter
     def listado_anuncios(self,listado_anuncios):
         self.__listado_anuncios=listado_anuncios
-
+ 
 
     def _crear_anuncios(self, anuncios):
         for datos_anuncio in anuncios:
